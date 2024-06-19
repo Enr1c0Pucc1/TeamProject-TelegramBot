@@ -10,6 +10,12 @@ def feedback_button():
     markup.add(feedback_button)
     return markup
 
+def information_button():
+    markup = types.InlineKeyboardMarkup()
+    inf_button = types.InlineKeyboardButton('Узнать больше', callback_data='information')
+    markup.add(inf_button)
+    return markup
+
 
 @bot.message_handler(commands=['start'])
 def main(message):
@@ -31,8 +37,8 @@ def main(message):
 @bot.callback_query_handler(func=lambda call:True)
 def callback(call):
     if call.message:
-        bot.answer_callback_query(call.id, "Мы получили ваш запрос!")
-        bot.send_message(call.message.chat.id, "Спасибо за ваш запрос! Мы свяжемся с вами в ближайшее время.")
-
+        if call.data == 'information':
+            bot.send_message(call.message.chat.id, "общ информация")
+    
 
 bot.polling(none_stop=True)
