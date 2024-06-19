@@ -1,4 +1,5 @@
 import telebot
+from telebot import types
 
 bot = telebot.TeleBot('7232178964:AAHYKJvU_c2t15_RjFT6WOa78yLZ37ZDUaY')
 
@@ -18,5 +19,9 @@ def main(message):
 🌟Воспользуйтесь кнопками предложенными снизу, в них вы можете найти необходимую для вас информацию.
 Если вы не смогли найти нужную для вас информацию, вы можете связаться с администрацией.''')
 
+#markup = types.InlineKeyboardMarkup(row_width=1)
+#item = types.InlineKeyboardMarkup('О летнем периоде', callback_data='spbutton')
+#markup.add(spbutton)
 
 bot.polling(none_stop=True)
+
