@@ -24,6 +24,24 @@ def create_buttons_markup():
     markup.add(summer_info)
     return markup
 
+def create_schedule_markup():
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    group = types.InlineKeyboardButton("Групповые занятия", callback_data='group')
+    mentoring = types.InlineKeyboardButton("Наставничество", callback_data='mentoring')
+    back = types.InlineKeyboardButton("Назад", callback_data='back_to_menu')
+    markup.add(group)
+    markup.add(mentoring)
+    markup.add(back)
+    return markup
+
+def create_schedule_info_markup():
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    back_button = types.InlineKeyboardButton("Назад", callback_data='back_to_schedule')
+    feedback_button = types.InlineKeyboardButton('Обратная связь', callback_data='feedback')
+    markup.add(back_button, feedback_button)
+    return markup
+
+
 
 def create_info_markup():
     markup = types.InlineKeyboardMarkup(row_width=2)
@@ -155,8 +173,19 @@ def callback(call):
 
     elif call.data == 'info_schedule':
         bot.answer_callback_query(call.id)
-        info_markup = create_info_markup()
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Информация про расписание.", reply_markup=info_markup)
+        schedule_markup = create_schedule_markup()
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Информация про расписание.", reply_markup=schedule_markup)
+    
+    elif call.data == 'group':
+        bot.answer_callback_query(call.id)
+        info_markup = create_schedule_info_markup()
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=group, reply_markup=info_markup)
+
+    elif call.data == 'mentoring':
+        bot.answer_callback_query(call.id)
+        info_markup = create_schedule_info_markup()
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=mentoring, reply_markup=info_markup)
+
 
 
 
@@ -247,10 +276,16 @@ def callback(call):
         parents_markup = create_parents_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=parents_markup)
 
+    elif call.data == 'back_to_schedule':
+        bot.answer_callback_query(call.id)
+        schedule_markup = create_schedule_markup()
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=schedule_markup)
 
     elif call.data == 'back_to_menu':
         bot.answer_callback_query(call.id)
         buttons_markup = create_buttons_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=buttons_markup)
+
+    
 
 bot.polling(none_stop=True)
