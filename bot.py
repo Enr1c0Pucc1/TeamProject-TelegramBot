@@ -4,11 +4,23 @@ from text import *
 
 bot = telebot.TeleBot('7232178964:AAHYKJvU_c2t15_RjFT6WOa78yLZ37ZDUaY')
 
+ADMIN_CHANNEL_ID = '-1002147985788'
+
+user_states = {}
+
+user_question = ''
 
 def information_button():
     markup = types.InlineKeyboardMarkup()
     inf_button = types.InlineKeyboardButton('Узнать больше', callback_data='information')
     markup.add(inf_button)
+    return markup
+
+
+def create_feedback_markup():
+    markup = types.InlineKeyboardMarkup()
+    back_button = types.InlineKeyboardButton("Назад", callback_data='back_to_menu')
+    markup.add(back_button)
     return markup
 
 
@@ -41,6 +53,25 @@ def create_schedule_info_markup():
     markup.add(back_button, feedback_button)
     return markup
 
+
+
+def create_schedule_markup():
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    group = types.InlineKeyboardButton("Групповые занятия", callback_data='group')
+    mentoring = types.InlineKeyboardButton("Наставничество", callback_data='mentoring')
+    back = types.InlineKeyboardButton("Назад", callback_data='back_to_menu')
+    markup.add(group)
+    markup.add(mentoring)
+    markup.add(back)
+    return markup
+
+
+def create_schedule_info_markup():
+    markup = types.InlineKeyboardMarkup(row_width=2)
+    back_button = types.InlineKeyboardButton("Назад", callback_data='back_to_schedule')
+    feedback_button = types.InlineKeyboardButton('Обратная связь', callback_data='feedback')
+    markup.add(back_button, feedback_button)
+    return markup
 
 
 def create_info_markup():
@@ -144,148 +175,127 @@ def callback(call):
         bot.answer_callback_query(call.id)
         buttons_markup = create_buttons_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=buttons_markup)
-
-
-
     elif call.data == 'info_payment':
         bot.answer_callback_query(call.id)
         info_markup = create_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=how_to_pay, reply_markup=info_markup)
-
-
-
     elif call.data == 'info_format':
         bot.answer_callback_query(call.id)
         format_markup = create_format_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Информация про формат обучения.", reply_markup=format_markup)
-
     elif call.data == 'education_info':
         bot.answer_callback_query(call.id)
         info_markup = create_info_format_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=education_info, reply_markup=info_markup)
-
     elif call.data == 'support_info':
         bot.answer_callback_query(call.id)
         info_markup = create_info_format_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=support_info, reply_markup=info_markup)
-
-
-
     elif call.data == 'info_schedule':
         bot.answer_callback_query(call.id)
         schedule_markup = create_schedule_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Информация про расписание.", reply_markup=schedule_markup)
-    
     elif call.data == 'group':
         bot.answer_callback_query(call.id)
         info_markup = create_schedule_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=group, reply_markup=info_markup)
-
     elif call.data == 'mentoring':
         bot.answer_callback_query(call.id)
         info_markup = create_schedule_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=mentoring, reply_markup=info_markup)
-
-
-
-
     elif call.data == 'info_parents':
         bot.answer_callback_query(call.id)
         parents_markup = create_parents_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Информация для родителей.", reply_markup=parents_markup)
-
     elif call.data == 'general_information':
         bot.answer_callback_query(call.id)
         info_markup = create_info_parents_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=general_information, reply_markup=info_markup)
-
     elif call.data == 'soft_skills_after_training':
         bot.answer_callback_query(call.id)
         info_markup = create_info_parents_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=soft_skills_after_training, reply_markup=info_markup)
-
     elif call.data == 'hard_skills_after_training':
         bot.answer_callback_query(call.id)
         info_markup = create_info_parents_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=hard_skills_after_training, reply_markup=info_markup)
-
-
-
     elif call.data == 'info_summer':
         bot.answer_callback_query(call.id)
         summer_markup = create_summer_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Информация про лето.", reply_markup=summer_markup)
-        
     elif call.data == 'activities_available':
         bot.answer_callback_query(call.id)
         info_markup = create_summer_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=activities_available, reply_markup=info_markup)
-
     elif call.data == 'summer_easy':
         bot.answer_callback_query(call.id)
         info_markup = create_summer_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=summer_easy, reply_markup=info_markup)
-        
     elif call.data == 'time_active':
         bot.answer_callback_query(call.id)
         info_markup = create_summer_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=time_active, reply_markup=info_markup)
-        
     elif call.data == 'info_intensive':
         bot.answer_callback_query(call.id)
         info_markup = create_summer_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=info_intensive, reply_markup=info_markup)
-        
     elif call.data == 'info_mentoring':
         bot.answer_callback_query(call.id)
         info_markup = create_summer_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=info_mentoring, reply_markup=info_markup)
-        
     elif call.data == 'info_addition':
         bot.answer_callback_query(call.id)
         info_markup = create_summer_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text=info_addition, reply_markup=info_markup)
-        
-
-
     elif call.data == 'feedback':
         bot.answer_callback_query(call.id)
-        bot.send_message(call.message.chat.id, "Спасибо за ваш запрос! Мы свяжемся с вами в ближайшее время.")
-    
-
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Задайте вопрос к администратору.")
+        user_states[call.message.chat.id] = 'awaiting_feedback'
     elif call.data == 'back_to_pay':
         bot.answer_callback_query(call.id)
         pay_markup = create_pay_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=pay_markup)
-
-
     elif call.data == 'back_to_summer':
         bot.answer_callback_query(call.id)
         summer_markup = create_summer_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=summer_markup)
-
-
     elif call.data == 'back_to_format':
         bot.answer_callback_query(call.id)
         format_markup = create_format_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=format_markup)
-
-
     elif call.data == 'back_to_parents':
         bot.answer_callback_query(call.id)
         parents_markup = create_parents_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=parents_markup)
-
     elif call.data == 'back_to_schedule':
         bot.answer_callback_query(call.id)
         schedule_markup = create_schedule_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=schedule_markup)
-
     elif call.data == 'back_to_menu':
         bot.answer_callback_query(call.id)
         buttons_markup = create_buttons_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=buttons_markup)
 
-    
+
+@bot.message_handler(func=lambda message: user_states.get(message.chat.id) == 'awaiting_feedback')
+def handle_feedback(message):
+    feedback_message = message.text
+    user_id = message.chat.id
+    feedback_markup = create_feedback_markup()
+    global user_question
+    if feedback_message.lower() == user_question.lower():
+        bot.send_message(user_id, "Вы уже задавали этот вопрос.", reply_markup=feedback_markup)
+    else:
+        user_info = message.from_user
+        username = user_info.username
+        if username:
+            user_link = f"@{username}"
+        else:
+            user_link = f"[ID: {user_id}](tg://user?id={user_id})"
+        bot.send_message(ADMIN_CHANNEL_ID, f"Пользователь {user_link} отправил сообщение: {feedback_message}", parse_mode='Markdown')
+        bot.send_message(user_id, "Спасибо за ваш запрос! Мы свяжемся с вами в ближайшее время.", reply_markup=feedback_markup)
+        user_states.pop(user_id)
+        user_question = feedback_message
+
 
 bot.polling(none_stop=True)
