@@ -10,28 +10,59 @@
 
     ```bash
     git clone <URL репозитория>
+    ```
+
+2. Перейдите в директорию проекта:
+
+    ```bash
     cd <название папки репозитория>
     ```
 
-2. Создайте виртуальную среду и активируйте её:
+3. Создайте виртуальное окружение:
 
     ```bash
-    python -m venv venv # Создание виртуальной среды
-    venv\Scripts\activate  # Активация для Windows
-    source venv/bin/activate  # Активация для MacOS/Linux
+    python -m venv venv
     ```
 
-3. Установите зависимости:
+4. Активируйте виртуальное окружение:
+
+    - На Windows:
+
+        ```bash
+        venv\Scripts\activate
+        ```
+
+    - На MacOS/Linux:
+
+        ```bash
+        source venv/bin/activate
+        ```
+
+
+5. Установите зависимости:
 
     ```bash
     pip install -r requirements.txt
     ```
 
-4. Запустите бота:
+## Конфигурация
 
-    ```bash
-    python bot.py
+1. Создайте файл `.env` в корневой директории проекта и добавьте в него следующие переменные:
+
+    ```dotenv
+    TELEGRAM_API_TOKEN=your_telegram_api_token
+    ADMIN_CHANNEL_ID=your_admin_channel_id
     ```
+
+2. Замените `your_telegram_api_token` на ваш токен API Telegram бота, а `your_admin_channel_id` на ID вашего закрытого канала для администраторов.
+
+## Запуск
+
+Для запуска бота используйте следующую команду:
+
+```bash
+python bot.py
+```
 
 ## Описание файлов
 
