@@ -4,6 +4,8 @@ from text import *
 
 bot = telebot.TeleBot('7232178964:AAHYKJvU_c2t15_RjFT6WOa78yLZ37ZDUaY')
 
+ADMIN_CHANNEL_ID = '-1002147985788'
+
 user_states = {}
 
 user_question = ''
