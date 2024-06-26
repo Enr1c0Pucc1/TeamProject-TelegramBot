@@ -16,9 +16,9 @@
 2. Создайте виртуальную среду и активируйте её:
 
     ```bash
-    python -m venv venv
-    venv\Scripts\activate  # Для Windows
-    source venv/bin/activate  # Для MacOS/Linux
+    python -m venv venv # Создание виртуальной среды
+    venv\Scripts\activate  # Активация для Windows
+    source venv/bin/activate  # Активация для MacOS/Linux
     ```
 
 3. Установите зависимости:
