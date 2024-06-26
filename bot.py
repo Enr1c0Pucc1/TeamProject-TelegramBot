@@ -14,6 +14,7 @@ user_states = {}
 
 user_question = ''
 
+
 def information_button():
     markup = types.InlineKeyboardMarkup()
     inf_button = types.InlineKeyboardButton('Узнать больше', callback_data='information')
@@ -40,6 +41,7 @@ def create_buttons_markup():
     markup.add(summer_info)
     return markup
 
+
 def create_schedule_markup():
     markup = types.InlineKeyboardMarkup(row_width=2)
     group = types.InlineKeyboardButton("Групповые занятия", callback_data='group')
@@ -50,13 +52,13 @@ def create_schedule_markup():
     markup.add(back)
     return markup
 
+
 def create_schedule_info_markup():
     markup = types.InlineKeyboardMarkup(row_width=2)
     back_button = types.InlineKeyboardButton("Назад", callback_data='back_to_schedule')
     feedback_button = types.InlineKeyboardButton('Обратная связь', callback_data='feedback')
     markup.add(back_button, feedback_button)
     return markup
-
 
 
 def create_schedule_markup():
@@ -140,6 +142,7 @@ def create_format_markup():
     markup.add(back)
     return markup
 
+
 def create_info_format_markup():
     markup = types.InlineKeyboardMarkup(row_width=2)
     back_button = types.InlineKeyboardButton("Назад", callback_data='back_to_format')
@@ -159,6 +162,7 @@ def create_parents_markup():
     markup.add(hard_skills_after_training)
     markup.add(back)
     return markup
+
 
 def create_info_parents_markup():
     markup = types.InlineKeyboardMarkup(row_width=2)
