@@ -1,10 +1,14 @@
 import telebot
+import os
+from dotenv import load_dotenv
 from telebot import types
 from text import *
 
-bot = telebot.TeleBot('7232178964:AAHYKJvU_c2t15_RjFT6WOa78yLZ37ZDUaY')
+load_dotenv()
 
-ADMIN_CHANNEL_ID = '-1002147985788'
+bot = telebot.TeleBot(os.getenv('TELEGRAM_BOT_API'))
+
+ADMIN_CHANNEL_ID = os.getenv('ADMIN_CHANNEL_ID')
 
 user_states = {}
 
@@ -284,7 +288,7 @@ def handle_feedback(message):
     feedback_markup = create_feedback_markup()
     global user_question
     if feedback_message.lower() == user_question.lower():
-        bot.send_message(user_id, "Вы уже задавали этот вопрос.", reply_markup=feedback_markup)
+        bot.send_message(user_id, "Вы уже задавали этот вопрос. Мы обязательно на него ответим.", reply_markup=feedback_markup)
     else:
         user_info = message.from_user
         username = user_info.username
