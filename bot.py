@@ -94,15 +94,6 @@ def create_summer_markup():
     return markup
 
 
-def create_pay_markup():
-    markup=types.InlineKeyboardMarkup(row_width=2)
-    how_to_pay = types.InlineKeyboardButton("Как происходит оплата", callback_data="how_to_pay")
-    back = types.InlineKeyboardButton("Назад", callback_data='back_to_menu')
-    markup.add(how_to_pay)
-    markup.add(back)
-    return markup
-
-
 def create_pay_info_markup():
     markup = types.InlineKeyboardMarkup(row_width=2)
     back_button = types.InlineKeyboardButton("Назад", callback_data='back_to_pay')
@@ -240,7 +231,7 @@ def callback(call):
         user_states[call.message.chat.id] = 'awaiting_feedback'
     elif call.data == 'back_to_pay':
         bot.answer_callback_query(call.id)
-        pay_markup = create_pay_markup()
+        pay_markup = create_pay_info_markup()
         bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, text="Теперь выберите один из вариантов или свяжитесь с администрацией:", reply_markup=pay_markup)
     elif call.data == 'back_to_summer':
         bot.answer_callback_query(call.id)
