@@ -99,8 +99,6 @@ def create_pay_markup():
     how_to_pay = types.InlineKeyboardButton("Как происходит оплата", callback_data="how_to_pay")
     back = types.InlineKeyboardButton("Назад", callback_data='back_to_menu')
     markup.add(how_to_pay)
-    markup.add(education_info)
-    markup.add(support_info)
     markup.add(back)
     return markup
 
