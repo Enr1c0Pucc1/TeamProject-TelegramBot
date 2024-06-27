@@ -61,25 +61,6 @@ def create_schedule_info_markup():
     return markup
 
 
-def create_schedule_markup():
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    group = types.InlineKeyboardButton("Групповые занятия", callback_data='group')
-    mentoring = types.InlineKeyboardButton("Наставничество", callback_data='mentoring')
-    back = types.InlineKeyboardButton("Назад", callback_data='back_to_menu')
-    markup.add(group)
-    markup.add(mentoring)
-    markup.add(back)
-    return markup
-
-
-def create_schedule_info_markup():
-    markup = types.InlineKeyboardMarkup(row_width=2)
-    back_button = types.InlineKeyboardButton("Назад", callback_data='back_to_schedule')
-    feedback_button = types.InlineKeyboardButton('Обратная связь', callback_data='feedback')
-    markup.add(back_button, feedback_button)
-    return markup
-
-
 def create_info_markup():
     markup = types.InlineKeyboardMarkup(row_width=2)
     back_button = types.InlineKeyboardButton("Назад", callback_data='back_to_menu')
